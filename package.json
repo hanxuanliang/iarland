@@ -1,0 +1,22 @@
+{
+  "name": "iarland",
+  "version": "0.1.0",
+  "description": "期刊小程序后端server，纯koa编写",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hanxuanliang/iarland.git"
+  },
+  "author": "hxl",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hanxuanliang/iarland/issues"
+  },
+  "homepage": "https://github.com/hanxuanliang/iarland#readme",
+  "dependencies": {
+    "koa": "^2.11.0"
+  }
+}
