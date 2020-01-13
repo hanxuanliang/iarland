@@ -24,6 +24,12 @@ class InitManager {
       }
     }
   }
+
+  // 全局导入错误异常，看个人选择
+  static loadHttpException() {
+    const errors = require('./http-exception')
+    global.errs = errors
+  }
 }
 
 module.exports = InitManager
