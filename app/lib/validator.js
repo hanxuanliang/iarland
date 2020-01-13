@@ -1,12 +1,17 @@
 /**
  * 整个项目所需的校验器
  */
-const { LinValidator } = require('../../core/validator-v2')
+const { LinValidator, Rule } = require('../../core/validator-v2')
 
-class IntegarValidator extends LinValidator {
-  
+class PositiveIntegarValidator extends LinValidator {
+  constructor() {
+    super()
+    this.id = [
+      new Rule('isInt', '必须是整数', { min: 1 })
+    ]
+  }
 }
 
 module.exports = {
-  IntegarValidator
+  PositiveIntegarValidator
 }
