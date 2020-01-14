@@ -2,6 +2,7 @@
  * 整个项目所需的校验器
  */
 const { LinValidator, Rule } = require('../../core/validator-v2')
+const { User } = require('../models/user')
 
 class PositiveIntegarValidator extends LinValidator {
   constructor() {

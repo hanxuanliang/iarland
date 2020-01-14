@@ -1,5 +1,4 @@
 const Router = require('koa-router')
-const bcrypt = require('bcryptjs')
 const { RegisterValidator } = require('../../lib/validator')
 const { User } = require('../../models/user')
 
@@ -9,16 +8,14 @@ const router = new Router({
 
 router.post('/register', async (ctx, next) => {
   const v = await new RegisterValidator().validate(ctx)
-  // 指的是花费成本，值越高成本越高
-  const salt = bcrypt.genSaltSync(10)
-  const psw = bcrypt.hashSync(v.get('body.password2'), salt)
   const user = {
     email: v.get('body.email'),
-    password: psw,
+    password: v.get('body.password2'),
     nickname: v.get('body.nickname')
   }
   const res = await User.create(user)
-
+  // 返回成功消息的 “错误异常”
+  throw new global.errs.Success()
 })
 
 module.exports = router
