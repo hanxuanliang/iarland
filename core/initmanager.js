@@ -8,6 +8,7 @@ class InitManager {
   static initCore(app) {
     InitManager.app = app
     InitManager.initLoadRouters()
+    InitManager.loadHttpException()
     InitManager.loadConfig()
   }
 

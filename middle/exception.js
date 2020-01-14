@@ -6,10 +6,10 @@ const catchError = async (ctx, next) => {
   try {
     await next()
   } catch(error) {
-    const isDev = global.config.environment === 'env'
+    const isDev = global.config.environment === 'dev'
     const isHttpException = error instanceof HttpException
-    // 开发环境需要把错误堆栈暴露出来
-    if (isDev) {
+    // 开发环境需要把错误堆栈暴露出来，而且不是自定义异常
+    if (isDev && !isHttpException) {
       throw error
       // 一旦抛出了异常，后续代码就不会再执行了
     }
