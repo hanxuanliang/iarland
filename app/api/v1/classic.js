@@ -1,8 +1,13 @@
 const Router = require('koa-router')
 
-const router = new Router()
+const { PositiveIntegarValidator } = require('../../lib/validator')
+const { Auth } = require('../../../middle/auth')
 
-router.get('/v1/classic/latest', (ctx, next) => {
+const router = new Router({
+  prefix: '/v1/classic'
+})
+
+router.get('/latest', new Auth.m, async (ctx, next) => {
   ctx.body = {
     key: 'classic'
   }
