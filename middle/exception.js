@@ -23,7 +23,7 @@ const catchError = async (ctx, next) => {
       ctx.status = error.code
     } else {
       ctx.body = {
-        msg: 'make a mistake',
+        msg: 'make a mistake O(∩_∩)O~~',
         error_code: 996,
         request: `${ctx.method} ${ctx.path}`
       }

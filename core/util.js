@@ -1,3 +1,5 @@
+const jwt = require("jsonwebtoken")
+
 /**
  * 如何查找一个Class实例对象以及其所有父类上指定名称前缀的自定义属性名和自定义方法名
  */
@@ -29,4 +31,17 @@ const findMembers = function(instance, { prefix, specifiedType, filter }) {
 	return _find(instance);
 };
 
-module.exports = { findMembers }
+const generateToken = function(uid, scope) {
+	const secretKey = global.config.security.secretKey
+	const expiresIn = global.config.security.expiresIn
+	const token = jwt.sign({
+		uid, scope
+	}, secretKey, { expiresIn })
+
+	return token
+}
+
+module.exports = { 
+	findMembers,
+	generateToken
+}
