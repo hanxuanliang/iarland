@@ -4,6 +4,7 @@ const bcrypt = require('bcryptjs')
 const { sequelize } = require('../../core/db')
 
 class User extends Model {
+  // 验证邮箱合法性
   static async verifyEmailPassword(email, plainPassword) {
     const user = await User.findOne({
       where: { email }
@@ -15,6 +16,18 @@ class User extends Model {
     if (!correct) { throw new global.errs.AuthFailed('密码不正确') }
     
     return user
+  }
+
+  // 通过openid来查询user
+  static async getUserByOpenid(openid) {
+    return await User.findOne({
+      where: { openid }
+    })
+  }
+
+  // 通过openid写入user到数据库
+  static async registerByOpenid(openid) {
+    return await User.create({ openid })
   }
 }
 

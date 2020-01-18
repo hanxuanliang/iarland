@@ -7,10 +7,8 @@ const router = new Router({
   prefix: '/v1/classic'
 })
 
-router.get('/latest', new Auth.m, async (ctx, next) => {
-  ctx.body = {
-    key: 'classic'
-  }
+router.get('/latest', new Auth().m, async (ctx, next) => {
+  ctx.body = ctx.auth.uid
 })
 
 module.exports = router
