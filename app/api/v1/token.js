@@ -1,6 +1,6 @@
 const Router = require('koa-router')
 
-const { TokenValidator } = require('../../lib/validator')
+const { TokenValidator, NotEmptyValidator } = require('../../lib/validator')
 const { LoginType } = require('../../lib/enum')
 const { User } = require('../../models/user')
 const { generateToken } = require('../../../core/util')
@@ -28,6 +28,14 @@ router.post('/', async (ctx) => {
   }
   ctx.body = {
     token
+  }
+})
+
+router.post('/verify', async (ctx) => {
+  const v = await new NotEmptyValidator().validate(ctx)
+  const result = Auth.verifyToken(v.get('body.token'))
+  ctx.body = {
+    result
   }
 })
 

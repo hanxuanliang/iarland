@@ -27,13 +27,23 @@ class WxService {
     if (result.status !== 200) {
       throw new global.errs.AuthFailed('openid获取失败')
     }
+    /**
+     * 事实上，wx在正常返回200的情况下，是不返回errcode；
+     * 然而wxapi文档中却显示errcode=0下为正确返回，但是事实上
+     * 是没有errcode。
+     * 所以在此处判断就是errcode存在是，就抛出异常
+     */
     const errcode = result.data.errcode
     const errmsg = result.data.errmsg
-    if (errcode !== 0) {
+    if (errcode) {
       throw new global.errs.AuthFailed(
         'openid获取失败：' + errcode + ' / ' + errmsg)
     }
 
+    /**
+     * 小程序登陆逻辑图
+     * https://raw.githubusercontent.com/hanxuanliang/PicGo/master/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%99%BB%E5%BD%95%E9%80%BB%E8%BE%91.jpg
+     */
     const openid = result.data.openid
     let user = await User.getUserByOpenid(openid)
     if (!user) {

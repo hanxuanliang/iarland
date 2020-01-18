@@ -44,6 +44,16 @@ class Auth {
       await next()
     }
   }
+
+  // 验证Token的合法性 
+  static verifyToken(token) {
+    try {
+      jwt.verify(token, global.config.security.secretKey)
+      return true
+    } catch (error) {
+      return false
+    }
+  }
 }
 
 module.exports = { Auth }
