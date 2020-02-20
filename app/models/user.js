@@ -31,7 +31,7 @@ class User extends Model {
   }
 }
 
-User.init({
+const userFields = {
   id: {
     type: Sequelize.INTEGER,
     primaryKey: true,
@@ -56,7 +56,9 @@ User.init({
     type: Sequelize.STRING(64),
     unique: true
   }
-}, { 
+}
+
+User.init(userFields, { 
   sequelize,
   tableName: 'user'
 })

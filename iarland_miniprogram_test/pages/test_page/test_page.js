@@ -3,9 +3,9 @@ import { Base64 } from 'js-base64'
 
 Page({
   onGetToken() {
-    // code
+    // 小程序内置了login()可以获取code
     wx.login({
-      success: (res) => {
+      success: res => {
         if (res.code) {
           wx.request({
             url: 'http://localhost:3000/v1/token',
