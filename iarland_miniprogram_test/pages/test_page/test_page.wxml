@@ -36,3 +36,19 @@
   bind:lintap="onDislike">
   取消点赞
 </l-button>
+
+<l-button
+  type="warning"
+  l-class="btn" 
+  size="long" 
+  bind:lintap="onGetNext">
+  获取下一期
+</l-button>
+
+<l-button
+  type="warning"
+  l-class="btn" 
+  size="long" 
+  bind:lintap="onGetPrevious">
+  获取上一期
+</l-button>

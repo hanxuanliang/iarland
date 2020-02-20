@@ -32,4 +32,34 @@ router.get('/latest', new Auth().m, async (ctx, next) => {
   ctx.body = art
 })
 
+router.get('/:index/next', new Auth().m, async (ctx, next) => {
+  const v = await new PositiveIntegarValidator().validate(ctx, {id: "index"})
+  const index = v.get('path.index')
+  const flow = await Flow.findOne({
+    where: { index: index + 1 }
+  })
+  if (!flow) throw global.errs.NotFound()
+
+  const art = await Art.getData(flow.artId, flow.type)
+  const likeNext = await Favor.isLike(ctx.auth.uid, flow.artId, flow.type)
+  art.setDataValue("index", flow.index)
+  art.setDataValue("like_status", likeNext)
+  ctx.body = art
+})
+
+router.get('/:index/previous', new Auth().m, async (ctx, next) => {
+  const v = await new PositiveIntegarValidator().validate(ctx, {id: "index"})
+  const index = v.get('path.index')
+  const flow = await Flow.findOne({
+    where: { index: index - 1 }
+  })
+  if (!flow) throw global.errs.NotFound()
+
+  const art = await Art.getData(flow.artId, flow.type)
+  const likePrevious = await Favor.isLike(ctx.auth.uid, flow.artId, flow.type)
+  art.setDataValue("index", flow.index)
+  art.setDataValue("like_status", likePrevious)
+  ctx.body = art
+})
+
 module.exports = router
