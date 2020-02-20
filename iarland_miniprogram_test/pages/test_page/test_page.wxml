@@ -12,3 +12,11 @@
   bind:lintap="onVerifyToken">
   验证Token
 </l-button>
+
+<l-button
+  type="warning"
+  l-class="btn" 
+  size="long" 
+  bind:lintap="onGetLatest">
+  验证Token
+</l-button>

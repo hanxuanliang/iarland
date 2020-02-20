@@ -38,5 +38,31 @@ Page({
         console.log(res.data)
       }
     })
+  },
+
+  onGetLatest() {
+    /**
+     * 1.小程序中携带令牌，需要在header头部加上 Authorization 字段；
+     * 2.Authorization的格式：
+     *    Authorization:Basic base64(account:password)
+     *    已经有Base64将token加密；因为此接口需要携带token才能访问，所以这里的
+     *    Authorization就是token的base64加密信息
+     */
+    wx.request({
+      url: 'http://localhost:3000/v1/classic/latest',
+      method: 'GET',
+      success: res => {
+        console.log(res.data)
+      },
+      header: {
+        Authorization: this._encode()
+      }
+    })
+  },
+
+  _encode() {
+    const token = wx.getStorageSync("token")
+    const base64 = Base64.encode(token + ":")
+    return `Basic ${base64}` 
   }
 })
