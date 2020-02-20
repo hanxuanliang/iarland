@@ -10,7 +10,6 @@ const app = new Koa()
 app.use(catchError)
 app.use(bodyParser())
 
-
 InitManager.initCore(app)
 
 app.listen(3000)

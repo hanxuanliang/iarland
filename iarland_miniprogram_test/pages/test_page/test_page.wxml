@@ -20,3 +20,11 @@
   bind:lintap="onGetLatest">
   验证Token
 </l-button>
+
+<l-button
+  type="error"
+  l-class="btn" 
+  size="long" 
+  bind:lintap="onLike">
+  点赞
+</l-button>

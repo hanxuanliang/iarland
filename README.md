@@ -4,4 +4,4 @@
 
 ## 前端构建
 
-自行创建小程序进行测试【测试token功能】。
+自行创建小程序进行测试【代码在 `iarland_miniprogram_test` 中】。
