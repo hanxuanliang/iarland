@@ -5,8 +5,10 @@ class Art {
   /**
    * 通过 类目(type) id(对应类目的id) 来查询
    */
-  static async getData(artId, type) {
+  static async getData(artId, type, useScope = true) {
     let art = null
+    // 如果在scope中传入null，不会应用scope
+    const scope = useScope ? 'ex' : null
     /**
      * MOVIE:100,
      * MUSIC:200,
@@ -15,17 +17,17 @@ class Art {
      */
     switch (type) {
       case 100:
-        art = await Movie.findOne({ 
+        art = await Movie.scope(scope).findOne({ 
           where: {id: artId} 
         })
         break
       case 200:
-        art = await Music.findOne({ 
+        art = await Music.scope(scope).findOne({ 
           where: {id: artId} 
         })
         break
       case 300:
-        art = await Sentence.findOne({ 
+        art = await Sentence.scope(scope).findOne({ 
           where: {id: artId} 
         })
         break

@@ -24,8 +24,13 @@ class Favor extends Model{
       await Favor.create({
         artId, uid, type
       }, {transaction: t})
-      const art = await Art.getData(artId, type)
+      // 传入 false 不进行scope去除
+      const art = await Art.getData(artId, type, false)
       // 另一个 SQL 操作，也需要附带 transaction 事务属性
+      /**
+       * BUG TODO 这个是官方的bug，就是在scope去除字段之后，
+       * 再次去对该模型进行操作时，会发现sql语句的拼接出现问题，目前这个bug好像还没有修复
+       */
       art.increment("fav_nums", { by: 1, transaction: t })
     })
   }
@@ -43,7 +48,7 @@ class Favor extends Model{
       await favor.destroy({
         force: false, transaction: t 
       })
-      const art = await Art.getData(artId, type)
+      const art = await Art.getData(artId, type, false)
       // 另一个 SQL 操作，也需要附带 transaction 事务属性
       art.decrement("fav_nums", { by: 1, transaction: t })
     })
