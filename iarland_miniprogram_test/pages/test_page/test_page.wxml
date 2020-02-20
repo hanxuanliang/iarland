@@ -28,3 +28,11 @@
   bind:lintap="onLike">
   点赞
 </l-button>
+
+<l-button
+  type="error"
+  l-class="btn" 
+  size="long" 
+  bind:lintap="onDislike">
+  取消点赞
+</l-button>

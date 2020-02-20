@@ -1,3 +1,5 @@
+require("module-alias/register")    // 全局引入别名设置
+
 const Koa = require('koa')
 const bodyParser  = require('koa-bodyparser')
 

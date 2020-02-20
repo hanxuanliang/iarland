@@ -31,5 +31,10 @@
     "jsonwebtoken": "^8.5.1",
     "koa-static": "^5.0.0",
     "module-alias": "^2.2.0"
+  },
+  "_moduleAliases":{
+    "@root": ".",
+    "@models": "app/models",
+    "@validator": "app/lib/validator.js"
   }
 }
