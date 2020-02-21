@@ -18,7 +18,7 @@
   l-class="btn" 
   size="long" 
   bind:lintap="onGetLatest">
-  验证Token
+  获取最新一期
 </l-button>
 
 <l-button

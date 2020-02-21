@@ -22,7 +22,7 @@ const ArtType = {
   MUSIC: 200,
   SENTENCE: 300,
   BOOK: 400,
-  isThisType
+  isOneofType
 }
 
 module.exports = { LoginType, ArtType }

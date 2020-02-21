@@ -79,7 +79,7 @@ Page({
 
   onDislike() {
     wx.request({
-      url: 'http://localhost:3000/v1/cancel',
+      url: 'http://localhost:3000/v1/like/cancel',
       method: 'POST',
       data: {
         art_id: 1,
@@ -109,7 +109,7 @@ Page({
 
   onGetPrevious() {
     wx.request({
-      url: 'http://localhost:3000/v1/classic/6/next',
+      url: 'http://localhost:3000/v1/classic/6/previous',
       method: 'GET',
       success: res => {
         console.log(res.data)

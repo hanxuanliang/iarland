@@ -8,7 +8,7 @@ const { Sequelize, Model } = require('sequelize')
  */
 const flowFields = {
   index: Sequelize.INTEGER,
-  artId: Sequelize.INTEGER,
+  art_id: Sequelize.INTEGER,
   type: Sequelize.INTEGER 
 }
 

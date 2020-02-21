@@ -1,4 +1,4 @@
-const { unset, clone } = require('lodash')
+const { unset, clone, isArray } = require('lodash')
 
 const { Sequelize, Model } = require('sequelize') 
 const { dbName, host, port, user, password } = require('../config/config').database
@@ -9,14 +9,14 @@ const sequelize = new Sequelize(dbName, user, password, {
   define: {
     // 这个是做软删除的，会加一个 delete_time
     paranoid: true,
-    createdAt: 'create_at',
-    updateAt: 'update_at',
-    deleteAt: 'delete_at',
+    createdAt: 'created_at',
+    updatedAt: 'updated_at',
+    deletedAt: 'deleted_at',
     underscored: true,
     scopes: {
       ex: {
         attributes: {
-          exclude: ['create_at', 'update_at', 'delete_at']
+          exclude: ['created_at', 'updated_at', 'deleted_at']
         }
       }
     }
@@ -35,12 +35,20 @@ sequelize.sync({
  * 自定义JSON序列化，将 toJSON() 接在Model上
  * 【因为Model是官方库的API，可以采用原型链的方式动态添加你的自定义】
  */
-Model.prototype.toJSON = () => {
+Model.prototype.toJSON = function() {
   // let data = this.dataValues
   let data = clone(this.dataValues)   // 使用浅拷贝，不影响原有的对象数据
-  unset(data, 'create_at')
-  unset(data, 'update_at')
-  unset(data, 'delete_at')
+  unset(data, 'created_at')
+  unset(data, 'updated_at')
+  unset(data, 'deleted_at')
+
+  /**
+   * 再次活用原型链，使用 Model 携带的exclude[]，还必须可以使用this引用，
+   * 这个也就用到了原型链，动态在 Model 上添加属性
+   */
+  if (isArray(this.exclude)) {
+    this.exclude.forEach(value => unset(data, value))
+  }
   return data
 }
 
